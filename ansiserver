@@ -1,0 +1,2 @@
+[local] 
+Capstone141.wipro.com hostname=127.0.1.1 ansible_sudo_user=osgdev

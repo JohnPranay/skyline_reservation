@@ -1,0 +1,5 @@
+---
+# vars file for tomcat
+
+tomcat_port:  12015
+tomcat_path: /home/osgdev/eclipse-workspace/Skyline/apache-tomcat-8.5.27

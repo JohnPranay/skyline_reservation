@@ -1,0 +1,6 @@
+--- 
+- 
+  become: true
+  hosts: Capstone141.wipro.com
+  roles: 
+    - tomcat

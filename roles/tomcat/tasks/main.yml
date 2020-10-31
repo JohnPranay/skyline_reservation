@@ -1,0 +1,44 @@
+---
+# tasks file for tomcat
+- name: to create target directory
+  file:
+   path: /home/osgdev/eclipse-workspace/Skyline
+   state: directory
+
+- name: to unarchive the zip folder
+  unarchive:
+    src: apache-tomcat-8.5.27.tar.gz
+    dest: /home/osgdev/eclipse-workspace/Skyline
+    mode: 0755
+
+- name: configuring port address
+  template:
+    src: server.xml.j2
+    dest: "{{tomcat_path}}/conf/server.xml"
+
+- name: Download the war file from artifactory
+  shell: /home/osgdev/eclipse-workspace/Skyline/artifact_get.sh
+
+
+- name: copying war file 
+  copy:
+   src: /home/osgdev/eclipse-workspace/Skyline/AirlineReservation.war
+   dest: "{{tomcat_path}}/webapps/AirlineReservation.war"
+
+- name : Archive the tomcat
+  archive:
+    path: /home/osgdev/eclipse-workspace/Skyline/apache-tomcat-8.5.27
+    dest: /home/osgdev/eclipse-workspace/Skyline/apache-tomcat-8.5.27.tar.gz
+
+- name: Delete tomcat folder 
+  file:
+   path: /home/osgdev/eclipse-workspace/Skyline/apache-tomcat-8.5.27
+   state: absent 
+
+- name: Stop container
+  docker_container:
+   name: skyline_reserv 
+   state: absent
+
+
+
